@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Slot Raffle</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- SheetJS for Excel -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Main Spin View -->
+        <main class="spin-view">
+            <button id="hamburger-btn" class="hamburger-btn">☰</button>
+            
+            <!-- Asset Header -->
+            <img src="assets/header.png" class="asset-header" alt="Undian Check-In">
+
+            <div class="slots-container" id="slots-container">
+                <!-- Slot machines will be injected here -->
+            </div>
+            
+            <button id="spin-btn" class="spin-btn" disabled>SPIN</button>
+
+            <!-- Asset Body Text -->
+            <img src="assets/body_text.png" class="asset-body-text" alt="Tetap Tenang Bisa Menang">
+            
+            <!-- Asset Footer -->
+            <img src="assets/footer.png" class="asset-footer" alt="Footer Sponsorship">
+        </main>
+
+        <!-- Sidebar Overlay -->
+        <div id="sidebar-overlay" class="sidebar-overlay"></div>
+        
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h2>Control Panel</h2>
+                <button id="close-sidebar-btn" class="close-btn">&times;</button>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-target="tab-peserta">Peserta</button>
+                <button class="tab-btn" data-target="tab-pemenang">Pemenang</button>
+            </div>
+
+            <!-- Tab Peserta -->
+            <div class="tab-content active" id="tab-peserta">
+                <div class="form-group">
+                    <label>Upload Data (Excel/CSV)</label>
+                    <input type="file" id="file-upload" accept=".xlsx, .xls, .csv">
+                </div>
+                
+                <div id="column-select-group" class="form-group hidden">
+                    <label>Pilih Kolom Diundi</label>
+                    <select id="column-select"></select>
+                </div>
+
+                <div class="form-group dual">
+                    <div>
+                        <label>Range Awal</label>
+                        <input type="number" id="range-start" value="1" min="1">
+                    </div>
+                    <div>
+                        <label>Range Akhir</label>
+                        <input type="number" id="range-end" value="100" min="1">
+                    </div>
+                    <div>
+                        <button id="apply-data-btn" class="btn-primary">Filter</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Jumlah Pemenang per Spin (Max 6)</label>
+                    <input type="number" id="winner-count" value="1" min="1" max="6">
+                </div>
+
+                <div class="data-stats">
+                    Total Peserta: <span id="total-peserta">0</span>
+                    <button id="reset-data-btn" class="btn-danger btn-sm">Reset Data</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="peserta-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Peserta</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data peserta masuk sini -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab Pemenang -->
+            <div class="tab-content" id="tab-pemenang">
+                <button id="clear-winners-btn" class="btn-danger btn-sm mb-10">Clear Pemenang</button>
+                <button id="export-winners-btn" class="btn-primary btn-sm mb-10" style="margin-left: 10px; width: auto;">Export ke Excel</button>
+                <div class="table-container">
+                    <table id="pemenang-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Pemenang</th>
+                                <th>Waktu Menang</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data pemenang masuk sini -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
