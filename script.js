@@ -74,6 +74,12 @@ const exportWinnersBtn = document.getElementById('export-winners-btn');
 const rangeStart = document.getElementById('range-start');
 const rangeEnd = document.getElementById('range-end');
 
+const inputMethodSelect = document.getElementById('input-method');
+const excelInputGroup = document.getElementById('excel-input-group');
+const manualInputGroup = document.getElementById('manual-input-group');
+const manualTextarea = document.getElementById('manual-textarea');
+const duplicateWarning = document.getElementById('duplicate-warning');
+
 // Init
 document.addEventListener('DOMContentLoaded', () => {
     loadState();
@@ -97,7 +103,36 @@ function setupEventListeners() {
 
     fileUpload.addEventListener('change', handleFileUpload);
     columnSelect.addEventListener('change', processSelectedColumn);
-    applyDataBtn.addEventListener('click', () => { applyFilter(); alert("Filter berhasil diterapkan!"); });
+    
+    inputMethodSelect.addEventListener('change', (e) => {
+        if(e.target.value === 'excel') {
+            excelInputGroup.classList.remove('hidden');
+            manualInputGroup.classList.add('hidden');
+        } else {
+            excelInputGroup.classList.add('hidden');
+            manualInputGroup.classList.remove('hidden');
+        }
+    });
+
+    manualTextarea.addEventListener('input', (e) => {
+        const text = e.target.value;
+        const names = text.split(/[\n,]+/).map(n => n.trim()).filter(n => n);
+        const uniqueNames = new Set(names);
+        if(names.length > uniqueNames.size) {
+            duplicateWarning.classList.remove('hidden');
+        } else {
+            duplicateWarning.classList.add('hidden');
+        }
+    });
+
+    applyDataBtn.addEventListener('click', () => { 
+        if (inputMethodSelect.value === 'excel') {
+            applyFilter(); 
+            alert("Filter Data Excel berhasil diterapkan!"); 
+        } else {
+            applyManualData();
+        }
+    });
 
     resetDataBtn.addEventListener('click', () => {
         if (confirm("Yakin ingin mereset seluruh data peserta?")) {
@@ -220,6 +255,32 @@ function applyFilter() {
                 count++;
             }
         }
+    }
+
+    saveState();
+    renderPeserta();
+    checkReady();
+    if (!isSpinning) renderSlots(parseInt(winnerCountInput.value));
+}
+
+function applyManualData() {
+    const text = manualTextarea.value;
+    const names = text.split(/[\n,]+/).map(n => n.trim()).filter(n => n);
+    
+    if(names.length === 0) {
+        return alert("Data manual masih kosong!");
+    }
+
+    participants = [];
+    names.forEach((name, index) => {
+        participants.push({ name: name, row: index + 1 });
+    });
+    
+    const uniqueNames = new Set(names);
+    if(names.length > uniqueNames.size) {
+        alert(`Berhasil diinput. Terdapat peringatan: Ada duplikat dalam data Anda! (${names.length} data, ${uniqueNames.size} unik)`);
+    } else {
+        alert("Data manual berhasil diinput!");
     }
 
     saveState();

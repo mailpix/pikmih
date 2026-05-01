@@ -50,28 +50,47 @@
             <!-- Tab Peserta -->
             <div class="tab-content active" id="tab-peserta">
                 <div class="form-group">
-                    <label>Upload Data (Excel/CSV)</label>
-                    <input type="file" id="file-upload" accept=".xlsx, .xls, .csv">
-                </div>
-                
-                <div id="column-select-group" class="form-group hidden">
-                    <label>Pilih Kolom Diundi</label>
-                    <select id="column-select"></select>
+                    <label>Metode Input</label>
+                    <select id="input-method">
+                        <option value="excel">Upload File Excel/CSV</option>
+                        <option value="manual">Input Manual (Teks)</option>
+                    </select>
                 </div>
 
-                <div class="form-group dual">
-                    <div>
-                        <label>Range Awal</label>
-                        <input type="number" id="range-start" value="1" min="1">
+                <!-- Mode Excel -->
+                <div id="excel-input-group">
+                    <div class="form-group">
+                        <label>Upload Data (Excel/CSV)</label>
+                        <input type="file" id="file-upload" accept=".xlsx, .xls, .csv">
                     </div>
-                    <div>
-                        <label>Range Akhir</label>
-                        <input type="number" id="range-end" value="100" min="1">
+                    
+                    <div id="column-select-group" class="form-group hidden">
+                        <label>Pilih Kolom Diundi</label>
+                        <select id="column-select"></select>
                     </div>
-                    <div>
-                        <button id="apply-data-btn" class="btn-primary">Filter</button>
+
+                    <div class="form-group dual">
+                        <div>
+                            <label>Range Awal</label>
+                            <input type="number" id="range-start" value="1" min="1">
+                        </div>
+                        <div>
+                            <label>Range Akhir</label>
+                            <input type="number" id="range-end" value="100" min="1">
+                        </div>
                     </div>
                 </div>
+
+                <!-- Mode Manual -->
+                <div id="manual-input-group" class="hidden">
+                    <div class="form-group">
+                        <label>Daftar Peserta <small>(Pisahkan dengan enter atau koma)</small></label>
+                        <textarea id="manual-textarea" rows="5" placeholder="John Doe, Jane Smith\nAtau baris baru..."></textarea>
+                        <small id="duplicate-warning" class="hidden" style="color: #EF4444; font-weight: bold; margin-top: 5px; display: block;">⚠️ Ada nama duplikat terdeteksi!</small>
+                    </div>
+                </div>
+
+                <button id="apply-data-btn" class="btn-primary mb-10">Terapkan Data</button>
 
                 <div class="form-group">
                     <label>Jumlah Pemenang per Spin (Max 6)</label>
