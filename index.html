@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,38 +11,39 @@
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
+
 <body>
     <div id="app">
         <!-- Main Spin View -->
         <main class="spin-view">
             <button id="hamburger-btn" class="hamburger-btn">☰</button>
-            
+
             <!-- Asset Header -->
             <img src="assets/header.png" class="asset-header" alt="Undian Check-In">
 
             <div class="slots-container" id="slots-container">
                 <!-- Slot machines will be injected here -->
             </div>
-            
+
             <button id="spin-btn" class="spin-btn" disabled>SPIN</button>
 
             <!-- Asset Body Text -->
             <img src="assets/body_text.png" class="asset-body-text" alt="Tetap Tenang Bisa Menang">
-            
+
             <!-- Asset Footer -->
             <img src="assets/footer.png" class="asset-footer" alt="Footer Sponsorship">
         </main>
 
         <!-- Sidebar Overlay -->
         <div id="sidebar-overlay" class="sidebar-overlay"></div>
-        
+
         <!-- Sidebar -->
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
                 <h2>Control Panel</h2>
                 <button id="close-sidebar-btn" class="close-btn">&times;</button>
             </div>
-            
+
             <div class="tabs">
                 <button class="tab-btn active" data-target="tab-peserta">Peserta</button>
                 <button class="tab-btn" data-target="tab-pemenang">Pemenang</button>
@@ -63,7 +65,7 @@
                         <label>Upload Data (Excel/CSV)</label>
                         <input type="file" id="file-upload" accept=".xlsx, .xls, .csv">
                     </div>
-                    
+
                     <div id="column-select-group" class="form-group hidden">
                         <label>Pilih Kolom Diundi</label>
                         <select id="column-select"></select>
@@ -85,8 +87,11 @@
                 <div id="manual-input-group" class="hidden">
                     <div class="form-group">
                         <label>Daftar Peserta <small>(Pisahkan dengan enter atau koma)</small></label>
-                        <textarea id="manual-textarea" rows="5" placeholder="John Doe, Jane Smith\nAtau baris baru..."></textarea>
-                        <small id="duplicate-warning" class="hidden" style="color: #EF4444; font-weight: bold; margin-top: 5px; display: block;">⚠️ Ada nama duplikat terdeteksi!</small>
+                        <textarea id="manual-textarea" rows="5"
+                            placeholder="John Doe, Jane Smith\nAtau baris baru..."></textarea>
+                        <small id="duplicate-warning" class="hidden"
+                            style="color: #EF4444; font-weight: bold; margin-top: 5px; display: block;">⚠️ Ada nama
+                            duplikat terdeteksi!</small>
                     </div>
                 </div>
 
@@ -121,7 +126,8 @@
             <!-- Tab Pemenang -->
             <div class="tab-content" id="tab-pemenang">
                 <button id="clear-winners-btn" class="btn-danger btn-sm mb-10">Clear Pemenang</button>
-                <button id="export-winners-btn" class="btn-primary btn-sm mb-10" style="margin-left: 10px; width: auto;">Export ke Excel</button>
+                <button id="export-winners-btn" class="btn-primary btn-sm mb-10"
+                    style="margin-left: 10px; width: auto;">Export ke Excel</button>
                 <div class="table-container">
                     <table id="pemenang-table">
                         <thead>
@@ -141,4 +147,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
